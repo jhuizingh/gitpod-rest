@@ -1,0 +1,17 @@
+{
+  "name": "gitpod-rest",
+  "version": "1.0.0",
+  "description": "Try rest client in gitpod",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Huizingh",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "jsrsasign": "^10.0.4"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {
+    },
+    "sandbox": {
+      "api_url": "https://testapi.redoxengine.com"
+    }
+  }
+}
