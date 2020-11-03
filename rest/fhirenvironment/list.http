@@ -1,3 +1,21 @@
 
+# @name gettoken
 
-Authorization: Bearer {{token}}
+POST {{api_url}}/v2/auth/token 
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+&client_assertion=eyJhbGciOiJSUzM4NCIsImtpZCI6IjIwMjAtMTAtMTlUMTU6NDU6NDQuMjI0WiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXByb2F0ZS11bWJpbGljYWxlLTY2MTciLCJzdWIiOiJjYXByb2F0ZS11bWJpbGljYWxlLTY2MTciLCJhdWQiOiJodHRwczovL2FwaS5yZWRveGVuZ2luZS5jb20vdjIvYXV0aC90b2tlbiIsImlhdCI6MTYwNDM2MzQ5NSwiZXhwIjoxNjA0MzYzNzk1LCJqdGkiOiJyZWRveDE2MDQzNjM0OTYwMjkiLCJzY29wZXMiOltdfQ.BU4hBS27y_6sEWdsyA9-vF6HeSO4JUMsw60eGmaaeJ5mSjx-I_Ppz2AyM9UuLxRcVKiLmnhdL0dxEl0o35ldn_WjUf8Hb5tmdDxuxHSpaIlBtq7FTt4Xoc2HE_H8FA53d8Vir-5_zRucSC7OpEFE3NFeFAC8shNyDSDltl6bboc4G59gK_9zf2YtVTjOr_OaDL5Tgp33ttj09LXHbKuk1ndeB6oiyJuhItdJSZqlscxBC03N6WkDUTCps72Zt7RfOK7FD5mzG0a5_vvKxadpcjUnF_O-V98qtfpFFlyBt0A7s8bMavpLHe_vgSy8zSbtJF7mkKwBka2tIYqnXbaHEQ
+&client_id=caproate-umbilicale-6617
+&alg=RS384
+&kid=caproate-umbilicale-6617
+&typ=JWT
+
+
+###
+
+GET {{api_url}}/v2/fhirenvironment
+Authorization: Bearer {{$dotenv %ACCESS_TOKEN}}
+bla:BLA
+# Authorization: Bearer {{gettoken.response.body.$.access_token}}
