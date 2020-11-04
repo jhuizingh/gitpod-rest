@@ -3,3 +3,7 @@ image:
 
 tasks:
   - init: npm install
+
+vscode:
+  extensions:
+    - humao.rest-client@0.24.2:tiNIwP71m33jcKqZcyO2EQ==
