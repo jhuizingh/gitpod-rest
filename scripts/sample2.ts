@@ -1,5 +1,6 @@
 const fs = require('fs');
-const privateKEY: any = JSON.parse(fs.readFileSync("./private.key", "utf8"));
+//const privateKEY: any = JSON.parse(fs.readFileSync("./private.key", "utf8"));
+const privateKEY = JSON.parse(process.env.PRIVATE_KEY);
 import { KEYUTIL, jws } from 'jsrsasign';
 
 console.log(JSON.stringify(privateKEY, null, 2));
@@ -42,6 +43,8 @@ const payload = JSON.stringify({
   "jti": "redox" + new Date().getTime(),
   "scopes": []
 });
+
+console.log(`payload=${payload}`);
 
 const signed_assertion = jws.JWS.sign(alg, header, payload, secret);
 
