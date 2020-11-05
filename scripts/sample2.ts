@@ -3,9 +3,6 @@ const fs = require('fs');
 const privateKEY = JSON.parse(process.env.PRIVATE_KEY);
 import { KEYUTIL, jws } from 'jsrsasign';
 
-console.log(JSON.stringify(privateKEY, null, 2));
-
-
 const client_id = process.env.CLIENT_ID;
 const audience = 'https://api.redoxengine.com/v2/auth/token';
 
@@ -44,11 +41,7 @@ const payload = JSON.stringify({
   "scopes": []
 });
 
-console.log(`payload=${payload}`);
-
 const signed_assertion = jws.JWS.sign(alg, header, payload, secret);
-
-console.log(`result=${signed_assertion}`);
 
 
 fs.writeFileSync('./signed_assertion', signed_assertion);
