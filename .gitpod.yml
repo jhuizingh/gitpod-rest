@@ -3,6 +3,7 @@ image:
 
 tasks:
   - init: npm install
+    command: npx ts-node scripts/sample2.ts
 
 vscode:
   extensions:
