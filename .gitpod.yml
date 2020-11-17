@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: npm install
-    command:  while true; do npx ts-node scripts/signed_assertion_from_env_privkey.ts; sleep 20; done 
+    command:  while true; do npx ts-node scripts/signed_assertion_from_env_privkey.ts; sleep 270; done 
 
 vscode:
   extensions:
