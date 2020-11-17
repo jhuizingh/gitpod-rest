@@ -1,7 +1,9 @@
 {
   "rest-client.environmentVariables": {
     "$shared": {
-      "api_url": "https://testapi.redoxengine.com"
+      "api_url": "https://testapi.redoxengine.com",
+      "client_assertion": "",
+      "client_id": "etidronic-infarcts-2765"
     },
     "sandbox": {
     }

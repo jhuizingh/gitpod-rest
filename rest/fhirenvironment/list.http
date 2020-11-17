@@ -6,10 +6,10 @@ Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials
 &client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-&client_assertion=
-&client_id=etidronic-infarcts-2765
+&client_assertion={{client_assertion}}
+&client_id={{client_id}}
 &alg=RS384
-&kid=etidronic-infarcts-2765
+&kid={{client_id}}
 &typ=JWT
 
 
