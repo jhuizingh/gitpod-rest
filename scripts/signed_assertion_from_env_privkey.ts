@@ -45,3 +45,9 @@ const signed_assertion = jws.JWS.sign(alg, header, payload, secret);
 
 
 fs.writeFileSync('./signed_assertion', signed_assertion);
+
+const settingsContents = fs.readFileSync('./.vscode/settings.json');
+const settings = JSON.parse(settingsContents);
+settings["rest-client.environmentVariables"].$shared.client_assertion = signed_assertion;
+console.log(JSON.stringify(settings, null, 2));
+fs.writeFileSync('./.vscode/settings.json', JSON.stringify(settings, null, 2));
