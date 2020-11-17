@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: npm install
-    command: npx ts-node scripts/sample2.ts
+    command: npx ts-node scripts/signed_assertion_from_env_privkey.ts
 
 vscode:
   extensions:
