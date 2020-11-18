@@ -1,0 +1,5 @@
+POST {{api_url}}/v2/fhir/redox-fhir-sandbox/Patient/_search
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer {{$dotenv access_token}}
+
+identifier=urn:redox:redox-fhir-sandbox:MR|1X45iGXUozTwnc5dsJKFAe

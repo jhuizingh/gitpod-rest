@@ -1,18 +1,2 @@
-
-# @name gettoken
-POST {{api_url}}/v2/auth/token 
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=client_credentials
-&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
-&client_assertion={{$dotenv client_assertion}}
-&client_id={{client_id}}
-&alg=RS384
-&kid={{client_id}}
-&typ=JWT
-
-
-###
-
 GET {{api_url}}/v2/fhirenvironment
 Authorization: Bearer {{$dotenv access_token}}
