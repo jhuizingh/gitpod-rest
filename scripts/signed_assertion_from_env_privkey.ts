@@ -1,4 +1,7 @@
 import * as fs from 'fs';
+import axios from 'axios';
+import * as qs from 'qs';
+
 //const privateKEY: any = JSON.parse(fs.readFileSync("./private.key", "utf8"));
 const privateKEY = JSON.parse(process.env.PRIVATE_KEY);
 import { KEYUTIL, jws } from 'jsrsasign';
@@ -26,31 +29,62 @@ const secret = KEYUTIL.getKey({ d, e, n, kty });
 
 
 const header = JSON.stringify({
-  "alg": alg,
-  "kid": kid,
-  "typ": "JWT"
+    "alg": alg,
+    "kid": kid,
+    "typ": "JWT"
 });
 
 const payload = JSON.stringify({
-  "iss": client_id,
-  "sub": client_id,
-  "aud": audience,
-  "iat": Math.floor(date.getTime() / 1000),
-  "exp": Math.floor(date.getTime() / 1000) + 300,
-  "jti": "redox" + new Date().getTime(),
-  "scopes": []
+    "iss": client_id,
+    "sub": client_id,
+    "aud": audience,
+    "iat": Math.floor(date.getTime() / 1000),
+    "exp": Math.floor(date.getTime() / 1000) + 300,
+    "jti": "redox" + new Date().getTime(),
+    "scopes": []
 });
 
-const signed_assertion = jws.JWS.sign(alg, header, payload, secret);
+const client_assertion = jws.JWS.sign(alg, header, payload, secret);
 
 
-// fs.writeFileSync('./signed_assertion', signed_assertion);
 
-// const settingsContents = fs.readFileSync('./.vscode/settings.json').toString();
-// const settings = JSON.parse(settingsContents);
-// settings["rest-client.environmentVariables"].$shared.client_assertion = signed_assertion;
-// console.log('Updating client_assertion in .vscode/settings.json at', new Date());
-// fs.writeFileSync('./.vscode/settings.json', JSON.stringify(settings, null, 2));
+const requestObject = {
+    grant_type: 'client_credentials',
+    client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+    client_assertion: client_assertion,
+    client_id: client_id,
+    alg: 'RS384',
+    kid: client_id,
+    typ: 'JWT'
+};
 
 
-fs.writeFileSync('.env', `client_assertion=${signed_assertion}`);
+const requestBody = 'grant_type=client_credentials'
+    + '&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer'
+    + `&client_assertion=${client_assertion}`
+    + `&client_id=${client_id}`
+    + '&alg=RS384'
+    + `&kid=${client_id}`
+    + '&typ=JWT';
+
+axios({
+    method: 'post',
+    url: `https://testapi.redoxengine.com/v2/auth/token`,
+    data: qs.stringify(requestObject),
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+}).then(res => {
+    console.log(`result=${JSON.stringify(res)}`);
+})
+    .catch(err => {
+        console.log(`Got error=${JSON.stringify(err)}`);
+    });
+
+
+console.log('Updating client_assertion in .env at', new Date());
+
+
+fs.writeFileSync('.env', `client_assertion=${client_assertion}`);
+
+console.log(`client_id=${client_id}`)
