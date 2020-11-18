@@ -15,4 +15,4 @@ grant_type=client_credentials
 ###
 
 GET {{api_url}}/v2/fhirenvironment
-Authorization: Bearer {{gettoken.response.body.$.access_token}}
+Authorization: Bearer {{$dotenv access_token}}

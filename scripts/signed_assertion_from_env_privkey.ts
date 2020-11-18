@@ -46,8 +46,6 @@ const payload = JSON.stringify({
 
 const client_assertion = jws.JWS.sign(alg, header, payload, secret);
 
-
-
 const requestObject = {
     grant_type: 'client_credentials',
     client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
@@ -58,15 +56,6 @@ const requestObject = {
     typ: 'JWT'
 };
 
-
-const requestBody = 'grant_type=client_credentials'
-    + '&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer'
-    + `&client_assertion=${client_assertion}`
-    + `&client_id=${client_id}`
-    + '&alg=RS384'
-    + `&kid=${client_id}`
-    + '&typ=JWT';
-
 axios({
     method: 'post',
     url: `https://testapi.redoxengine.com/v2/auth/token`,
@@ -74,17 +63,21 @@ axios({
     headers: {
         "Content-Type": "application/x-www-form-urlencoded"
     }
-}).then(res => {
-    console.log(`result=${JSON.stringify(res)}`);
+}).then((res) => {
+    try {
+        const { data: { access_token } } = res;
+
+        console.log('Updating client_assertion in .env at', new Date());
+        fs.writeFileSync('.env', 
+`client_assertion=${client_assertion}
+access_token=${access_token}`);
+
+    }
+    catch (err) {
+        console.log('caught error processing get token results');
+        console.log(`err=[${err}]`);
+    }
 })
-    .catch(err => {
-        console.log(`Got error=${JSON.stringify(err)}`);
-    });
-
-
-console.log('Updating client_assertion in .env at', new Date());
-
-
-fs.writeFileSync('.env', `client_assertion=${client_assertion}`);
-
-console.log(`client_id=${client_id}`)
+.catch(err => {
+    console.log(`Got error=${JSON.stringify(err)}`);
+});
