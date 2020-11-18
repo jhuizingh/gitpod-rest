@@ -1,9 +1,9 @@
 # To run sample
 
-- Click `Send Request` above the first request in `rest/list.http` that you just modified. This gets the temporary auth token.
-- Click `Send Request` above the second request in `rest/list.http`. This gets fhirenvironments using the temporary auth token from the first request.
+- In the left panel, navigate into the `/rest` folder to any `.http` file and open it. 
+- In the `.http` file you just opened, click `Send Request` above the request to execute it and see the results.
 
 
 # Todo Ideas
 
-- Make it so we don't need to run the `/auth/token` call manually at all.
+- Set up multiple REST client environments.
